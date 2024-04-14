@@ -27,12 +27,12 @@ public class OrderService {
         this.orderRepository = orderRepository;
     }
 
-    private List<Orders> getOrdersByDateDESC(){
-        return orderRepository.getOrdersByDateDesc();
+    public List<Orders> getOrdersByDateASC(){
+        return orderRepository.getOrdersByDateAsc();
     }
 
 
-    private Integer getBookStock(int bookId) {
+    public Integer getBookStock(int bookId) {
         return bookRepository.getBookStock(bookId);
     }
 

@@ -29,10 +29,10 @@ public class Orders {
     private String phoneNumber;
 
     @Column(name="house_number")
-    private int houseNumber;
+    private Integer houseNumber;
 
     @Column(name="flat_number")
-    private int flatNumber;
+    private Integer flatNumber;
 
     @Column(nullable = false)
     private String street;
@@ -49,6 +49,6 @@ public class Orders {
 
 
     @JoinColumn(name = "book_id")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Book book;
 }

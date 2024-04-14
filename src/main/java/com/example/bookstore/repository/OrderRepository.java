@@ -11,8 +11,8 @@ import java.util.List;
 public interface OrderRepository extends JpaRepository<Orders,Integer> {
 
 
-    @Query("SELECT o FROM Orders o ORDER BY o.date DESC")
-    List<Orders> getOrdersByDateDesc();
+    @Query("SELECT o FROM Orders o ORDER BY o.date ASC")
+    List<Orders> getOrdersByDateAsc();
 
 
 }
