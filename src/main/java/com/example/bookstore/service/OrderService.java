@@ -27,6 +27,14 @@ public class OrderService {
         this.orderRepository = orderRepository;
     }
 
+    public Orders findById(int id){
+        Optional<Orders> result =  orderRepository.findById(id);
+        if(result.isPresent()){
+            return result.get();
+        }
+        return null;
+    }
+
     public List<Orders> getOrdersByDateASC(){
         return orderRepository.getOrdersByDateAsc();
     }
@@ -65,7 +73,7 @@ public class OrderService {
     }
 
     @Transactional
-    public void createOrder(PlaceOrder placeOrder) {
+    public Orders createOrder(PlaceOrder placeOrder) {
         int bookId = placeOrder.getBookId();
         Book book = bookRepository.findById(bookId)
                 .orElseThrow(() -> new BookNotFoundException("Furniture with id " + bookId + " not found"));
@@ -74,6 +82,8 @@ public class OrderService {
             throw new IllegalArgumentException("This book is out of stock");
         Orders order = createOrderEntity(placeOrder, book);
         orderRepository.save(order);
+
+        return order;
 
     }
 

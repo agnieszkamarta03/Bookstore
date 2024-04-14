@@ -2,12 +2,11 @@ package com.example.bookstore.controller;
 
 import com.example.bookstore.entity.orderEntity.Orders;
 import com.example.bookstore.order.OrderInfo;
+import com.example.bookstore.order.PlaceOrder;
 import com.example.bookstore.service.OrderService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -29,5 +28,28 @@ public class OrderController {
     @GetMapping("/{id}")
     private OrderInfo getFullOrderInfo(@PathVariable int id) throws Throwable {
         return orderService.findSpecificOrderAndFullInfo(id);
+    }
+
+    @PostMapping("/place")
+    public Orders createOrder(@RequestBody PlaceOrder placeOrder) {
+        return orderService.createOrder(placeOrder);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public void deleteOrder(@PathVariable int id){
+        orderService.deleteOrder(id);
+    }
+
+    @PutMapping("/edit/{id}")
+    public Orders editOrder(@PathVariable int id, @RequestBody OrderInfo orderInfo) {
+        Orders order = orderService.findById(id);
+        if (order == null) {
+            throw new IllegalArgumentException("Order with id " + id + " not found");
+        }
+        BeanUtils.copyProperties(orderInfo, order);
+        orderService.editOrder(id,orderInfo);
+
+        return orderService.findById(id);
+
     }
 }

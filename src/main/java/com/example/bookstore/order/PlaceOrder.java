@@ -8,8 +8,8 @@ public class PlaceOrder {
     private String name;
     private String surname;
     private String phoneNumber;
-    private int houseNumber;
-    private int flatNumber;
+    private Integer houseNumber;
+    private Integer flatNumber;
     private String street;
     private String postalCode;
     private String city;
